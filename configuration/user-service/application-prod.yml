@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:postgresql://${DB_LOCATION:localhost}:5432/dapixi_db
+    username: dapixi
+    password: d@piksi
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dapixi.website@gmail.com
+    password: d@piksii
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+eureka:
+  client:
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: ${EUREKASERVER_URI:http://localhost:16666/eureka/}
+
+server:
+  port: 17000
+  error:
+    include-message: always
+base-dir: ${SERVER_URL:http://localhost:18888}
+security:
+  oauth2:
+    resource:
+      userInfoUri: ${AUTHSERVER_URI:http://localhost:17777}/user-details
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: '/docs'
+  swagger-ui:
+    path: '/docs-ui-user'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
