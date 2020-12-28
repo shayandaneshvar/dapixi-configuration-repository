@@ -1,0 +1,29 @@
+
+eureka:
+  instance:
+    prefer-ip-address: on
+
+zuul:
+  prefix: /api
+  sensitive-headers: Cookie,Set-Cookie # Set Cookie to prevent XSS Exploits, so with JWTs and no JSESSIONID , no need to handle CSRF with another token
+  routes:
+    authentication-service:
+      path: /auth/**
+    photo-service:
+      path: /photo/**
+    user-service:
+      path: /user/**
+  ignoredServices: '*'
+  host:
+    time-to-live: -1
+    connect-timeout-millis: 5000
+    max-per-route-connections: 10000
+    max-total-connections: 5000
+    socket-timeout-millis: 10000
+    semaphore:
+      max-semaphores: 500
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
