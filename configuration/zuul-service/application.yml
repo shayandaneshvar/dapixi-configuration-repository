@@ -9,7 +9,7 @@ zuul:
   routes:
     authentication-service:
       path: /auth/**
-    photo-service:
+    photos:
       path: /photo/**
       url: http://94.184.176.106:80
     user-service:
